@@ -1,0 +1,13 @@
+# {{ product }}
+
+{{ description or "What " ~ product ~ " is, in two or three sentences, for a reader who was not there." }}
+
+This site holds its decisions, its roadmap, {{ "its ontology, " if ontology else "" }}and
+drawings of how it is built and how it works. It is public, and holds no one's data.
+
+- **[Diagrams](diagrams/)**: {diagrams} interactive drawings.
+- **[Decisions](adr/)**: {adrs} architecture decision records.
+- **[Roadmap](roadmap.html)**: where {{ product }} is heading.
+{%- if ontology %}
+- **[Ontology](ontology/)**: the T-Box, its rules and its vocabularies.
+{%- endif %}

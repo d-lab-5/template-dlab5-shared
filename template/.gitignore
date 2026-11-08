@@ -1,0 +1,9 @@
+node_modules/
+_site/
+# Archify's receipts beside each page: local evidence, not part of the docs
+diagrams/*.finalize*.json
+diagrams/*.delivery.json
+diagrams/*.browser-check.json
+diagrams/receipts/
+.archify/
+.DS_Store

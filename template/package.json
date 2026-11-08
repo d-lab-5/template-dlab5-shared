@@ -1,0 +1,21 @@
+{
+  "name": "@dlab5/shared-docs",
+  "version": "1.0.0",
+  "private": true,
+  "description": "A D-LAB-5 product's shared documentation: decisions, roadmap, diagrams and ontology reference (template-dlab5-shared)",
+  "type": "module",
+  "license": "MIT AND CC-BY-4.0",
+  "scripts": {
+    "diagrams": "node scripts/diagrams.mjs build",
+    "check": "node scripts/check.mjs",
+    "site": "node scripts/site.mjs",
+    "serve": "node scripts/site.mjs && python3 -m http.server 8792 --bind 127.0.0.1 --directory _site"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "dependencies": {
+    "marked": "18.1.3",
+    "n3": "2.13.12"
+  }
+}

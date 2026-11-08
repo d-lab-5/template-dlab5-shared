@@ -1,0 +1,57 @@
+# Check the documentation on every push and PR. From main, publish it to the
+# product's own domain when shared.json names one; every product is also built
+# into docs.dlab5.net by d-lab-5/d-lab-5.github.io, which needs nothing from
+# this workflow. Owned by template-dlab5-shared: `copier update` replaces it.
+name: docs
+
+on:
+  push:
+    branches: [stage, main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: pages-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - run: npm ci
+      # diagrams in step, ontology parses, site builds, nothing private (scripts/check.mjs)
+      - run: npm run check
+      - run: npm run site
+      - id: own
+        run: echo "domain=$(node -p "require('./shared.json').own_domain || ''")" >> "$GITHUB_OUTPUT"
+      - uses: actions/configure-pages@v6
+        if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request' && steps.own.outputs.domain != ''
+      - uses: actions/upload-pages-artifact@v5
+        if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request' && steps.own.outputs.domain != ''
+        with:
+          path: _site
+    outputs:
+      own_domain: ${{ steps.own.outputs.domain }}
+
+  deploy:
+    if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request' && needs.check.outputs.own_domain != ''
+    needs: check
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v5

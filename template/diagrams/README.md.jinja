@@ -1,0 +1,20 @@
+# Diagrams
+
+Interactive drawings of how {{ product }} works, made with Archify. The site
+shows them in its gallery at `/diagrams/`.
+
+- `src/<name>.<type>.json`: the source, the only file to edit.
+- `<name>.html`: the page rendered from it. Never edit it by hand.
+- `src/rendered.json`: which source each page was rendered from.
+
+`npm run diagrams` renders what changed (it needs the Archify skill in
+`~/.claude/skills/archify`, or `$ARCHIFY`); `npm run check` says whether every
+page is in step with its source and listed once.
+
+A diagram is listed once, with what it explains: under one of the groups
+below, or in the ADR it belongs to, under that ADR's `## Diagrams`. Each line
+reads `- [Title](../diagrams/<name>.html): what it explains.` and becomes the
+gallery card's text.
+{% for g in diagram_groups.split(',') if g.strip() %}
+## {{ g.strip() }}
+{% endfor %}

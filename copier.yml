@@ -1,0 +1,98 @@
+# template-dlab5-shared — a D-LAB-5 product's public documentation repository:
+# its decisions (ADRs), roadmap, Archify diagrams and ontology reference, with
+# a public sweep, published at docs.dlab5.net/<domain>/<slug>/ and, if it has
+# one, at its own domain.
+#
+#   copier copy --trust gh:d-lab-5/template-dlab5-shared <product>-shared
+#   copier update --trust                 # bring in the template's fixes
+#
+# The template owns scripts/, site/site.css, the workflow, SECURITY.md,
+# LICENSE, package.json and its lock: an update replaces them. The product
+# owns shared.json and its content (adr/, ROADMAP.md, diagrams/, site/landing.md,
+# ontology/, README.md, CLAUDE.md, NOTICE): made once, never overwritten.
+
+_min_copier_version: "9.4"
+_subdirectory: template
+_templates_suffix: .jinja
+_answers_file: .copier-answers.yml
+
+_skip_if_exists:
+  - shared.json
+  - README.md
+  - CLAUDE.md
+  - NOTICE
+  - ROADMAP.md
+  - site/landing.md
+  - "adr/**"
+  - "diagrams/**"
+  - "ontology/**"
+
+product:
+  type: str
+  help: The product's name, as a reader sees it
+  validator: "{% if not product.strip() %}a name is needed{% endif %}"
+
+slug:
+  type: str
+  help: Its short id in docs.dlab5.net/<domain>/<slug>/ (lowercase, digits, -)
+  default: "{{ product | lower | replace(' ', '-') | replace('.', '-') }}"
+  validator: "{% if not (slug | regex_search('^[a-z0-9][a-z0-9-]{0,39}$')) %}lowercase letters, digits and -{% endif %}"
+
+domain:
+  type: str
+  help: The development domain it belongs to
+  choices:
+    D-LAB-5, the core: d-lab-5
+    DigitalHome.Cloud: digitalhome
+    ERP-LAB-5: erp-lab-5
+    Atelier-5: atelier-5
+    artdecoris labs: artdecoris
+  default: d-lab-5
+
+description:
+  type: str
+  help: One line for its card on docs.dlab5.net
+  default: ""
+
+repo:
+  type: str
+  help: This repository, owner/name
+  default: "d-lab-5/{{ slug }}-shared"
+  validator: "{% if not (repo | regex_search('^[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+$')) %}owner/name{% endif %}"
+
+app_repos:
+  type: str
+  help: The application repositories, owner/name, comma separated; mark a private one with a trailing * (named, never linked)
+  default: ""
+
+own_domain:
+  type: str
+  help: A domain of its own for the docs, e.g. docs.example.org (empty for none; it needs a CNAME to the owner's github.io)
+  default: ""
+
+languages:
+  type: str
+  help: Label languages for the ontology page, comma separated, the first is the master
+  default: en
+
+ontology:
+  type: bool
+  help: Does it have an ontology (T-Box) to publish?
+  default: false
+
+ontology_source:
+  type: str
+  help: Where its source is, relative to this repository (sync-ontology.sh copies from there)
+  default: "../{{ slug }}/ontology"
+  when: "{{ ontology }}"
+
+ontology_files:
+  type: str
+  help: The files to copy, relative to that folder, comma separated (tbox/… and shapes/…)
+  default: "tbox/{{ slug }}.ttl, shapes/{{ slug }}-shapes.ttl"
+  when: "{{ ontology }}"
+
+diagram_groups:
+  type: str
+  help: The gallery's groups, comma separated (a diagram is listed under one, or in its ADR)
+  default: "Overview, Models"

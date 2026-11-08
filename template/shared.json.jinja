@@ -1,0 +1,11 @@
+{%- set apps = [] -%}
+{%- for a in app_repos.split(',') if a.strip() -%}
+{%- set _ = apps.append({"repo": a.strip().rstrip('*').strip(), "private": a.strip().endswith('*')}) -%}
+{%- endfor -%}
+{%- set doc = {
+  "product": product, "slug": slug, "domain": domain, "description": description,
+  "repo": repo, "own_domain": own_domain, "app_repos": apps,
+  "languages": languages.split(',') | map('trim') | select | list,
+  "ontology": ({"source": ontology_source, "files": ontology_files.split(',') | map('trim') | select | list} if ontology else none)
+} -%}
+{{ doc | tojson(indent=2) }}

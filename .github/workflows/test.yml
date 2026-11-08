@@ -1,0 +1,19 @@
+# Make product docs repositories from the template and prove they work (test.sh).
+name: test
+on:
+  push:
+    branches: [stage, main]
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+      - run: pipx install copier
+      - run: ./test.sh
