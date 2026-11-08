@@ -22,14 +22,14 @@
  */
 import { execFileSync } from "node:child_process";
 import { cpSync, existsSync, mkdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
-import { dirname, join } from "node:path";
+import { dirname, join, resolve } from "node:path";
 import { marked } from "marked";
 import { config } from "./config.mjs";
 import { REPO, adrs, groups, size, sources } from "./diagrams.mjs";
 import { ONTOLOGY, ontologyHtml, readOntology } from "./ontology.mjs";
 
 const arg = (name, fallback) => (process.argv.includes(name) ? process.argv[process.argv.indexOf(name) + 1] : fallback);
-const OUT = join(REPO, arg("--out", "_site"));
+const OUT = resolve(REPO, arg("--out", "_site"));
 const BASE = (() => {
   const b = arg("--base", "/");
   if (!/^\/([a-z0-9][a-z0-9-]*\/)*$/.test(b)) throw new Error(`--base is a path like /digitalhome/mediathek/, not ${b}`);
