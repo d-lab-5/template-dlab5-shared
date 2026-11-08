@@ -46,7 +46,7 @@ decisions in its own `docs/`.
 |---|---|
 | `scripts/`, `site/site.css`, `.github/workflows/pages.yml` | `shared.json`: name, domain, own domain, app repos, ontology |
 | `SECURITY.md`, `LICENSE`, `package.json`, `package-lock.json` | `adr/`, `ROADMAP.md`, `diagrams/`, `site/landing.md`, `ontology/` |
-| `.gitignore`, `.nvmrc` | `README.md`, `CLAUDE.md`, `NOTICE` |
+| `.gitignore`, `.nvmrc`, `.claude/settings.json` (the plugins: `dlab5-house`, `dlab5-shared-docs`) | `README.md`, `CLAUDE.md`, `NOTICE` |
 
 `copier update --trust` brings in the template's changes. A fix to a script
 belongs here, not in a product.

@@ -50,6 +50,9 @@ check_site() {   # dir, slug, ontology(0|1)
      for (const [k, v] of Object.entries(want)) if (m[k] !== v) throw new Error(`site.json ${k}: ${m[k]}`);
      if (m.counts.adrs !== 1) throw new Error("site.json counts the ADRs wrong");
      if ((m.counts.classes > 0) !== (process.argv[2] === "1")) throw new Error("site.json counts the classes wrong");' "$slug" "$onto"
+   # the repository declares its plugins, so every session there loads the same skills
+   node -e 'const p = require("./.claude/settings.json").enabledPlugins || {};
+     for (const n of ["dlab5-house@d-lab-5", "dlab5-shared-docs@d-lab-5"]) if (!p[n]) throw new Error(`.claude/settings.json does not enable ${n}`)'
    [ -f _site/index.html ] && [ -f _site/adr/0001-record-architecture-decisions.html ] && [ -f _site/roadmap.html ]
    if [ "$onto" = 1 ]; then [ -f _site/ontology/index.html ]; else [ ! -e _site/ontology ] && ! grep -q 'href="ontology/"' _site/index.html; fi
    if [ "$onto" = 0 ]; then [ ! -e _site/CNAME ]; fi
