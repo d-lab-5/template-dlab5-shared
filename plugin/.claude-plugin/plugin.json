@@ -1,0 +1,11 @@
+{
+  "name": "dlab5-shared-docs",
+  "version": "1.0.0",
+  "description": "The shared-docs template's own skill: a product's public <product>-shared repository and docs.dlab5.net.",
+  "author": {
+    "name": "D-LAB-5"
+  },
+  "homepage": "https://github.com/d-lab-5/template-dlab5-shared",
+  "repository": "https://github.com/d-lab-5/template-dlab5-shared",
+  "license": "MIT"
+}
