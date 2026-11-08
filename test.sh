@@ -41,7 +41,7 @@ make() {   # name, extra copier args...
 check_site() {   # dir, slug, ontology(0|1)
   local dst=$1 slug=$2 onto=$3
   (cd "$dst"
-   npm ci --silent --no-audit --no-fund >/dev/null
+   npm ci --ignore-scripts --silent --no-audit --no-fund >/dev/null
    npm run -s check
    npm run -s site >/dev/null
    node -e '
