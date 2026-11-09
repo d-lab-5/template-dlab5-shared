@@ -62,10 +62,20 @@ repos refer to "ADR-00NN in `<product>-shared`", and `NOTICE` records the
 commit they came from. Delete the template's seed `adr/0001-record-architecture-decisions.md`
 if the product brings its own ADR-0001.
 
+## Starting a session for the whole product
+
+A product's work spans its docs and its app repositories. Clone them side by
+side and start in the `-shared` one: `./start-claude.sh` (Windows:
+`start-claude.cmd`) adds every repository in `shared.json`'s `app_repos` that
+is beside it with `--add-dir`, names the ones that are not with the clone
+command, and passes any other argument on to `claude` (`--continue`, say).
+`--print-command` shows what it would run.
+
 ## Who owns what
 
 - **The template owns** `scripts/` (`config`, `diagrams`, `site`, `check`,
-  `ontology`, `sync-ontology`), `site/site.css`, `site/favicon.*`, `.github/workflows/pages.yml`,
+  `ontology`, `sync-ontology`, `start-claude`), `site/site.css`, `site/favicon.*`,
+  `start-claude.sh` and `.cmd`, `.github/workflows/pages.yml`,
   `SECURITY.md`, `LICENSE`, `package.json` and its lock. `copier update
   --trust` brings fixes. A fix goes into the template, never into one
   product's copy.
