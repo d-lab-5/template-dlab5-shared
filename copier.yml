@@ -6,7 +6,7 @@
 #   copier copy --trust gh:d-lab-5/template-dlab5-shared <product>-shared
 #   copier update --trust                 # bring in the template's fixes
 #
-# The template owns scripts/, site/site.css, the workflow, SECURITY.md,
+# The template owns scripts/, site/site.css, site/favicon.*, the workflow, SECURITY.md,
 # LICENSE, package.json and its lock: an update replaces them. The product
 # owns shared.json and its content (adr/, ROADMAP.md, diagrams/, site/landing.md,
 # ontology/, README.md, CLAUDE.md, NOTICE): made once, never overwritten.

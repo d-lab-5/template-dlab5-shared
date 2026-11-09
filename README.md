@@ -44,7 +44,7 @@ decisions in its own `docs/`.
 
 | The template owns (an update replaces them) | The product owns (made once) |
 |---|---|
-| `scripts/`, `site/site.css`, `.github/workflows/pages.yml` | `shared.json`: name, domain, own domain, app repos, ontology |
+| `scripts/`, `site/site.css`, `site/favicon.*`, `.github/workflows/pages.yml` | `shared.json`: name, domain, own domain, app repos, ontology |
 | `SECURITY.md`, `LICENSE`, `package.json`, `package-lock.json` | `adr/`, `ROADMAP.md`, `diagrams/`, `site/landing.md`, `ontology/` |
 | `.gitignore`, `.nvmrc`, `.claude/settings.json` (the plugins: `dlab5-house`, `dlab5-shared-docs`) | `README.md`, `CLAUDE.md`, `NOTICE` |
 

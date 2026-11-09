@@ -65,7 +65,7 @@ if the product brings its own ADR-0001.
 ## Who owns what
 
 - **The template owns** `scripts/` (`config`, `diagrams`, `site`, `check`,
-  `ontology`, `sync-ontology`), `site/site.css`, `.github/workflows/pages.yml`,
+  `ontology`, `sync-ontology`), `site/site.css`, `site/favicon.*`, `.github/workflows/pages.yml`,
   `SECURITY.md`, `LICENSE`, `package.json` and its lock. `copier update
   --trust` brings fixes. A fix goes into the template, never into one
   product's copy.
