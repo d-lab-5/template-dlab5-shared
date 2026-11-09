@@ -1,6 +1,6 @@
 {
   "name": "dlab5-shared-docs",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "The shared-docs template's own skill: a product's public <product>-shared repository and docs.dlab5.net.",
   "author": {
     "name": "D-LAB-5"

@@ -11,7 +11,8 @@
 #   2. npm ci, npm run check and npm run site pass; site.json says what it holds
 #   3. --base: every internal link in the built pages resolves under it
 #   4. a link to a private app repository fails the check
-#   5. copier update to a newer template changes the template's files and
+#   5. start-claude.sh adds the app repositories found beside it
+#   6. copier update to a newer template changes the template's files and
 #      leaves the product's alone
 set -euo pipefail
 cd "$(dirname "$0")"
@@ -55,6 +56,11 @@ check_site() {   # dir, slug, ontology(0|1)
      for (const n of ["dlab5-house@d-lab-5", "dlab5-shared-docs@d-lab-5"]) if (!p[n]) throw new Error(`.claude/settings.json does not enable ${n}`)'
    [ -f _site/index.html ] && [ -f _site/adr/0001-record-architecture-decisions.html ] && [ -f _site/roadmap.html ]
    [ -f _site/assets/favicon.svg ] && [ -f _site/assets/favicon.ico ] && grep -q 'href="../assets/favicon.svg"' _site/adr/index.html
+   # start-claude: the app repositories beside this one are added, a missing one is named
+   [ -x start-claude.sh ] && grep -q $'\r$' start-claude.cmd
+   mkdir -p ../demo-tools/.git
+   ./start-claude.sh --print-command --continue 2>err.txt | grep -q -- "--add-dir $(cd .. && pwd)/demo-tools --continue"
+   grep -q "ERP-LAB-5/demo-app" err.txt && rm err.txt
    if [ "$onto" = 1 ]; then [ -f _site/ontology/index.html ]; else [ ! -e _site/ontology ] && ! grep -q 'href="ontology/"' _site/index.html; fi
    if [ "$onto" = 0 ]; then [ ! -e _site/CNAME ]; fi
    # under a base, as docs.dlab5.net builds it: every relative link resolves inside _site
