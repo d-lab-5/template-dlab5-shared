@@ -7,3 +7,6 @@ diagrams/*.browser-check.json
 diagrams/receipts/
 .archify/
 .DS_Store
+
+# one person's Claude Code settings and permissions; .claude/settings.json is shared
+.claude/settings.local.json
