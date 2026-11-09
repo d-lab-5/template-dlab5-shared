@@ -69,7 +69,8 @@ side and start in the `-shared` one: `./start-claude.sh` (Windows:
 `start-claude.cmd`) adds every repository in `shared.json`'s `app_repos` that
 is beside it with `--add-dir`, names the ones that are not with the clone
 command, and passes any other argument on to `claude` (`--continue`, say).
-`--print-command` shows what it would run.
+`--print-command` shows what it would run. It is Python (standard library
+only), not Node: Python is on every computer that runs an edge.
 
 ## Who owns what
 
