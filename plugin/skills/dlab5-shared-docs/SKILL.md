@@ -32,6 +32,16 @@ docs.mediathek.digitalhome.cloud.
 A single public repository can keep `docs/adr/` in itself instead. Give it a
 `-shared` repository only when it should appear on docs.dlab5.net.
 
+**The DigitalHome.Cloud platform has no `digitalhome-cloud-shared`.** Its
+equivalent is **DigitalHome-cloud/digitalhome-cloud-darkfactory**, the
+platform's public umbrella repository (the apps and the backend are its
+submodules). The platform's ADRs, specs, architecture and design guide live
+in its `docs/`, and platform diagrams belong there too. Don't make a
+`digitalhome-cloud-shared`. Products on the platform, like the Mediathek,
+still get their own `-shared`. darkfactory isn't made from this template, so
+docs.dlab5.net can't build it until it carries the template's `shared.json`
+and `scripts/`.
+
 ## Making one
 
 ```bash
